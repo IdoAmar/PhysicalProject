@@ -18,7 +18,7 @@ export class HomeService {
     GetCustomerByCalls(): Observable<CustomerByCalls[]> {
         return this.data.request(ApiMap.GetCustomerByCalls).pipe(map(r => r.body ?? []));
     }
-    GetCustomerCalls(): Observable<CustomerCall[]> {
-        return this.data.request(ApiMap.GetCustomerCalls.clone({ url: ApiMap.GetCustomerCalls.url })).pipe(map(r => r.body ?? []));
+    GetCustomerCalls(id : number): Observable<CustomerCall[]> {
+        return this.data.request(ApiMap.GetCustomerCalls.clone({ url: (ApiMap.GetCustomerCalls.url + "/" + id) })).pipe(map(r => r.body ?? []));
     }
 }

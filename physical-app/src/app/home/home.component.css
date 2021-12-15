@@ -11,3 +11,10 @@ table{
     width:100%;
     align-self: center;
 }
+
+.mat-row{
+    cursor: pointer;
+}
+.mat-row:hover{
+    background-color: rgb(197, 233, 255);
+}

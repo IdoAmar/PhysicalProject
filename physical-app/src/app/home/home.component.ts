@@ -1,23 +1,34 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { Observable, Subscription } from 'rxjs';
+import { take } from 'rxjs/operators';
+import { CallsPopupComponent } from './components/calls-popup/calls-popup.component';
 import { CustomerByCalls } from './models/customer-by-calls.model';
 import { HomeService } from './services/home.service';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+    selector: 'app-home',
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
-    displayedColumns: string[] = ['id','fullName','city','totalCallTime'];
+export class HomeComponent implements OnInit, OnDestroy {
+    displayedColumns: string[] = ['id', 'fullName', 'city', 'totalCallTime'];
     customerByCalls$ !: Observable<CustomerByCalls[]>;
+    constructor(
+        private homeService: HomeService,
+        private dialog: MatDialog,
+    ) { }
 
-  constructor(
-      private homeService : HomeService,
-  ) { }
+    ngOnInit(): void {
+        this.customerByCalls$ = this.homeService.GetCustomerByCalls();
+    }
 
-  ngOnInit(): void {
-       this.customerByCalls$ = this.homeService.GetCustomerByCalls();
-  }
+    ngOnDestroy(): void {
+    }
 
+    TableRowClicked(row: CustomerByCalls) {
+        this.homeService.GetCustomerCalls(row.id).pipe(take(1)).subscribe( c => {
+            const dialogRef = this.dialog.open(CallsPopupComponent, { width: '400px' , data: c});
+        })
+    }
 }

@@ -8,7 +8,7 @@ import { CustomerCall } from '../../models/customer-call.model';
     styleUrls: ['./calls-popup.component.css']
 })
 export class CallsPopupComponent implements OnInit {
-    displayedColumns: string[] = ['CallLength', 'PhoneNumber'];
+    displayedColumns: string[] = ['PhoneNumber', 'CallLength'];
 
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: CustomerCall[]

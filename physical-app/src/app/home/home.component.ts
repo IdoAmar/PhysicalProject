@@ -9,15 +9,15 @@ import { HomeService } from './services/home.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
-    customerByCalls$ !: Observable<CustomerByCalls[] | null>;
+    displayedColumns: string[] = ['id','fullName','city','totalCallTime'];
+    customerByCalls$ !: Observable<CustomerByCalls[]>;
 
   constructor(
       private homeService : HomeService,
   ) { }
 
   ngOnInit(): void {
-       this.homeService.GetCustomerByCalls().subscribe(d => console.log(d));
+       this.customerByCalls$ = this.homeService.GetCustomerByCalls();
   }
 
 }

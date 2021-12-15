@@ -15,10 +15,10 @@ export class HomeService {
         private data: DataService
     ) { }
 
-    GetCustomerByCalls(): Observable<CustomerByCalls[] | null> {
-        return this.data.request(ApiMap.GetCustomerByCalls).pipe(map(r => r.body));
+    GetCustomerByCalls(): Observable<CustomerByCalls[]> {
+        return this.data.request(ApiMap.GetCustomerByCalls).pipe(map(r => r.body ?? []));
     }
-    GetCustomerCalls(): Observable<CustomerCall[] | null> {
-        return this.data.request(ApiMap.GetCustomerCalls.clone({ url: ApiMap.GetCustomerCalls.url })).pipe(map(r => r.body));
+    GetCustomerCalls(): Observable<CustomerCall[]> {
+        return this.data.request(ApiMap.GetCustomerCalls.clone({ url: ApiMap.GetCustomerCalls.url })).pipe(map(r => r.body ?? []));
     }
 }

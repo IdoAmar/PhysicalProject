@@ -52,7 +52,7 @@ namespace Services.Services.Implementations
         {
             return new CustomersByCallsDTO(
                 customer.id,
-                customer.firstName + " ; " + customer.lastName,
+                customer.firstName + " " + customer.lastName,
                 CityName,
                 (int)Sum.TotalSeconds);
         }

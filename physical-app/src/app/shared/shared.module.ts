@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
 
 
 
@@ -11,9 +12,12 @@ import { MatDialogModule } from '@angular/material/dialog';
         CommonModule,
         MatTableModule,
         MatDialogModule,
+        MatSelectModule,
     ],
     exports: [
-        MatTableModule
+        MatTableModule,
+        MatDialogModule,
+        MatSelectModule,
     ]
 })
 export class SharedModule { }

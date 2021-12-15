@@ -1,7 +1,5 @@
 .TableContainer{
     display: flex;
-    width: 100%;
-    height: 100%;
     justify-content: center;
 }
 
@@ -9,7 +7,7 @@ table{
     border: 1px solid #DDDDDD;
     margin-inline: 50px;
     width:100%;
-    align-self: center;
+    align-self: start;
 }
 
 .mat-row{

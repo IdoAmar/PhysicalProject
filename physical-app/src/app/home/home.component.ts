@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { CallsPopupComponent } from './components/calls-popup/calls-popup.component';
@@ -13,14 +14,19 @@ import { HomeService } from './services/home.service';
 })
 export class HomeComponent implements OnInit, OnDestroy {
     displayedColumns: string[] = ['id', 'fullName', 'city', 'totalCallTime'];
-    customerByCalls$ !: Observable<CustomerByCalls[]>;
+    customerByCalls! : CustomerByCalls[];
+    cities : string[] = [];
+    filteredCustomerCalls! : CustomerByCalls[];
     constructor(
         private homeService: HomeService,
         private dialog: MatDialog,
+        private route: ActivatedRoute,
     ) { }
 
     ngOnInit(): void {
-        this.customerByCalls$ = this.homeService.GetCustomerByCalls();
+        this.customerByCalls = this.route.snapshot.data.customerByCalls;
+        this.filteredCustomerCalls = this.customerByCalls;
+        this.cities = this.customerByCalls.map(c => c.city).filter((e, i, a) => a.indexOf(e) === i);
     }
 
     ngOnDestroy(): void {
@@ -30,5 +36,8 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.homeService.GetCustomerCalls(row.id).pipe(take(1)).subscribe( c => {
             const dialogRef = this.dialog.open(CallsPopupComponent, { width: '400px' , data: c});
         })
+    }
+    OnCityChanged(city : string){
+        this.filteredCustomerCalls = this.customerByCalls.filter( v => v.city === city);
     }
 }
